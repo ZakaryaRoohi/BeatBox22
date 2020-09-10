@@ -1,6 +1,8 @@
 package org.maktab.beatbox.utils;
 
+import android.media.MediaPlayer;
 import android.media.SoundPool;
+import android.widget.Toast;
 
 import org.maktab.beatbox.model.Sound;
 
@@ -22,5 +24,6 @@ public class SoundUtils {
         if (streamId == 0)
             throw new Exception("This sound can not be played!");
     }
+
 
 }

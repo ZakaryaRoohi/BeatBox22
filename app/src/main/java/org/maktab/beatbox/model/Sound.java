@@ -1,5 +1,7 @@
 package org.maktab.beatbox.model;
 
+import android.net.Uri;
+
 import java.io.File;
 
 public class Sound {
@@ -11,6 +13,8 @@ public class Sound {
     public String getName() {
         return mName;
     }
+
+
 
     public void setName(String name) {
         mName = name;
