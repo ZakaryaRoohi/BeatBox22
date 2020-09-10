@@ -8,7 +8,7 @@ public class Music {
 
     private String mName;
     private String mAssetPath;
-    private Integer mSoundId;
+
 
     public String getName() {
         return mName;
@@ -22,17 +22,6 @@ public class Music {
         return mAssetPath;
     }
 
-    public void setAssetPath(String assetPath) {
-        mAssetPath = assetPath;
-    }
-
-    public Integer getSoundId() {
-        return mSoundId;
-    }
-
-    public void setSoundId(Integer soundId) {
-        mSoundId = soundId;
-    }
 
     public Music(String assetPath) {
         //example: assetPath: sample_sounds/65_cjipie.wav

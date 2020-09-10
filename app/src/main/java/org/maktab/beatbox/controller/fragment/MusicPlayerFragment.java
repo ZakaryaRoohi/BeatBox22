@@ -39,7 +39,8 @@ public class MusicPlayerFragment extends Fragment {
     private MusicRepository mRepository;
     private MediaPlayer mMediaPlayer;
 
-    private  Music mCurrentMusicPlayed;
+    private Music mCurrentMusicPlayed;
+
     public MusicPlayerFragment() {
         // Required empty public constructor
     }
@@ -112,27 +113,6 @@ public class MusicPlayerFragment extends Fragment {
         return view;
     }
 
-
-//    private void changeSeekBar() {
-//        mSeekBar.setProgress(mMediaPlayer.getCurrentPosition());
-//        if (mMediaPlayer.isPlaying()) {
-//            mRunnable = new Runnable() {
-//                @Override
-//                public void run() {
-//                    if (mMediaPlayer != null) {
-//                        int mCurrentPosition = mMediaPlayer.getCurrentPosition() / 1000;
-//                        mSeekBar.setProgress(mCurrentPosition);
-//                    }
-//                    mHandler.postDelayed(this, 1000);
-//
-//                }
-//            };
-//
-//        }
-//
-//    }
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -145,7 +125,7 @@ public class MusicPlayerFragment extends Fragment {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
 
-//        mRepository.getMusics().release();;
+        mRepository.CleanRepository();
     }
 
     private void findViews(View view) {
@@ -177,8 +157,8 @@ public class MusicPlayerFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
-                if(b){
-                    mMediaPlayer.seekTo(i*1000);
+                if (b) {
+                    mMediaPlayer.seekTo(i * 1000);
                 }
             }
 
@@ -214,14 +194,14 @@ public class MusicPlayerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Music nextMusic;
-                if(mCurrentMusicPlayed!=null) {
+                if (mCurrentMusicPlayed != null) {
                     List<Music> mMusics = mRepository.getMusics();
 
                     int currentMusicIndex = mMusics.indexOf(mCurrentMusicPlayed);
-                    if(currentMusicIndex==mMusics.size()-1)
+                    if (currentMusicIndex == mMusics.size() - 1)
                         nextMusic = mMusics.get(0);
                     else
-                        nextMusic = mMusics.get(currentMusicIndex+1);
+                        nextMusic = mMusics.get(currentMusicIndex + 1);
 
                     mMediaPlayer.stop();
                     mMediaPlayer = new MediaPlayer();
@@ -235,14 +215,14 @@ public class MusicPlayerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Music nextMusic;
-                if(mCurrentMusicPlayed!=null) {
+                if (mCurrentMusicPlayed != null) {
                     List<Music> mMusics = mRepository.getMusics();
 
                     int currentMusicIndex = mMusics.indexOf(mCurrentMusicPlayed);
-                    if(currentMusicIndex==0)
-                         nextMusic = mMusics.get(mMusics.size()-1);
+                    if (currentMusicIndex == 0)
+                        nextMusic = mMusics.get(mMusics.size() - 1);
                     else
-                    nextMusic = mMusics.get(currentMusicIndex-1);
+                        nextMusic = mMusics.get(currentMusicIndex - 1);
 
                     mMediaPlayer.stop();
                     mMediaPlayer = new MediaPlayer();
@@ -253,6 +233,7 @@ public class MusicPlayerFragment extends Fragment {
             }
         });
     }
+
     private void initUI() {
         List<Music> musics = mRepository.getMusics();
         SoundAdapter adapter = new SoundAdapter(musics);
@@ -278,7 +259,7 @@ public class MusicPlayerFragment extends Fragment {
                     MusicUtils.playAssetSound(mMediaPlayer, getActivity(), mMusic.getAssetPath());
                     mMediaPlayer.start();
                     mButtonPlay.setText("pause");
-                    mCurrentMusicPlayed=mMusic;
+                    mCurrentMusicPlayed = mMusic;
 
                 }
             });

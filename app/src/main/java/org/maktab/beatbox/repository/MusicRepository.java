@@ -32,7 +32,6 @@ public class MusicRepository {
     private List<Music> mMusics;
 
 
-
     public static MusicRepository getInstance(Context context) {
         if (sInstance == null)
             sInstance = new MusicRepository(context);
@@ -64,6 +63,13 @@ public class MusicRepository {
 
     public List<Music> getMusics() {
         return mMusics;
+    }
+
+    public void CleanRepository() {
+        for (Music music : mMusics) {
+            mMusics.remove(music);
+
+        }
     }
 
 }
