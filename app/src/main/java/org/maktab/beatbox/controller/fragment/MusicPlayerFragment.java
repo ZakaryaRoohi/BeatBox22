@@ -85,8 +85,8 @@ public class MusicPlayerFragment extends Fragment {
             @Override
             public void run() {
                 if (mMediaPlayer != null) {
-                    int mCurrentPosition = mMediaPlayer.getCurrentPosition() / 1000;
-                    mSeekBar.setProgress(mCurrentPosition);
+                    int mCurrentPosition = mMediaPlayer.getCurrentPosition() ;
+                    mSeekBar.setProgress( (int) (((double)(mCurrentPosition)/mMediaPlayer.getDuration())*100));
                 }
                 mHandler.postDelayed(this, 1000);
             }
@@ -103,7 +103,8 @@ public class MusicPlayerFragment extends Fragment {
                         if (mMediaPlayer != null) {
                             int mCurrentPosition = mMediaPlayer.getCurrentPosition();
 
-                            mSeekBar.setProgress(mCurrentPosition);
+                            mSeekBar.setProgress( (int) (((double)(mCurrentPosition)/mMediaPlayer.getDuration())*100));
+
                         }
                         mHandler.postDelayed(this, 1000);
                     }
@@ -149,6 +150,8 @@ public class MusicPlayerFragment extends Fragment {
 
 
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            private int currentPosition;
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -156,14 +159,20 @@ public class MusicPlayerFragment extends Fragment {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
+                this.currentPosition = i;
                 if (b) {
-                    mMediaPlayer.seekTo(i * 1000);
+//                    mMediaPlayer.seekTo((i * mMediaPlayer.getDuration()) / 100);
+//                    (int) ((double) (mMediaPlayer.getDuration() * i) / 100);
                 }
+                Log.d("position", i + "");
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                Log.d("position2", "5655");
+//                seekBar.setProgress(mMediaPlayer.getCurrentPosition());
+//                mMediaPlayer.seekTo( (int) ((double) (mMediaPlayer.getDuration() * currentPosition) / 100));
+                mMediaPlayer.seekTo( (int) ((double) (mMediaPlayer.getDuration() * currentPosition) / 100));
             }
         });
         mButtonPlay.setOnClickListener(new View.OnClickListener() {
